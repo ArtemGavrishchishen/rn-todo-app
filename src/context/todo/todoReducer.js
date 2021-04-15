@@ -6,8 +6,8 @@ const handlers = {
     todos: [
       ...state.todos,
       {
-        id: Date.now().toString(),
-        title: payload,
+        id: payload.id,
+        title: payload.title,
       },
     ],
   }),
@@ -24,6 +24,11 @@ const handlers = {
     ...state,
     todos: state.todos.filter(todo => todo.id !== payload),
   }),
+  [types.FETCH_TODOS]: (state, payload) => ({ ...state, todos: payload }),
+  [types.SHOW_LOADER]: state => ({ ...state, loading: true }),
+  [types.HIDE_LOADER]: state => ({ ...state, loading: false }),
+  [types.SHOW_ERROR]: (state, payload) => ({ ...state, error: payload }),
+  [types.CLEAR_ERROR]: state => ({ ...state, error: null }),
   DEFAULT: state => state,
 }
 
